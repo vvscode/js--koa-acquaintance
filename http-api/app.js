@@ -7,9 +7,10 @@ var monk = require('monk');
 var wrap = require('co-monk');
 
 var db = monk('localhost/apiUsers');
-var users = wrap(db.get('users'));
+var users = module.exports.users = wrap(db.get('users'));
 
 app.use(routes.post('/user', addUser));
+app.use(routes.get('/user/:id', getUser));
 
 app.listen(3000);
 console.log('Application listen connections at http://localhost:3000');
@@ -26,4 +27,13 @@ function* addUser() {
 
   this.set('location', '/user/' + insertedUser._id);
   this.status = 200;
-}
+};
+
+function* getUser(id) {
+  var user = yield users.findById(id);
+
+  this.body = user;
+  this.status = 200;
+};
+
+
