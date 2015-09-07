@@ -34,7 +34,7 @@ function* getUser(id){
     this.status = 401;
     return;
   }
-  
+
   this.body = user;
   this.status = 200;
 }
