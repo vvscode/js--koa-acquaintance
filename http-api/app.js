@@ -12,6 +12,7 @@ var users = module.exports.users = wrap(db.get('users'));
 app.use(routes.post('/user', addUser));
 app.use(routes.get('/user/:id', getUser));
 app.use(routes.put('/user/:id', updateUser));
+app.use(routes.del('/user/:id', deleteUser));
 
 app.listen(3000);
 console.log('Application listen connections at http://localhost:3000');
@@ -43,6 +44,9 @@ function* updateUser(id) {
 
   this.set('location', '/user/' + id);
   this.status = 204;
+};
+
+function* deleteUser(id) {
+  yield users.remove({_id: id});
+  this.status = 200;
 }
-
-

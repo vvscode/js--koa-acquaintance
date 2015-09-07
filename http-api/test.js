@@ -70,4 +70,15 @@ describe("Simple User HTTP CRUD API", function() {
         });
     })();
   });
+
+  it("remove an existing user", function(done) {
+    co.wrap(function* () {
+      var insertedUser = yield app.users.insert(a_user);
+      var url = '/user/' + insertedUser._id;
+
+      request
+        .del(url)
+        .expect(200, done);
+    })();
+  });
 });
