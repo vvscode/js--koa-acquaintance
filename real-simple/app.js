@@ -13,7 +13,13 @@ app.use(route.get('/user/:id', getUser));
 
 function* saveUser() {
   var userFromRequest = yield parse(this);
-  var user = yield users.insert(userFromRequest);
+  try {
+    var user = yield users.insert(userFromRequest);
+  } catch (e) {
+    this.body = 'An error occurred: ' + e;
+    this.status = 401;
+    return;
+  }
 
   this.body = user;
   this.set('Location', '/user/' + user._id);
@@ -21,7 +27,14 @@ function* saveUser() {
 }
 
 function* getUser(id){
-  var user = yield yield users.findById(id);
+  try {
+    var user = yield yield users.findById(id);
+  } catch (e) {
+    this.body = 'An error occurred: ' + e;
+    this.status = 401;
+    return;
+  }
+  
   this.body = user;
   this.status = 200;
 }
