@@ -48,4 +48,26 @@ describe("Simple User HTTP CRUD API", function() {
         .expect(200, done);
     })();
   });
+
+  it("updated an existing user", function(done) {
+    co.wrap(function* () {
+      var insertedUser = yield app.users.insert(a_user);
+      var url = '/user/' + insertedUser._id;
+
+      request
+        .put(url)
+        .send({name: 'vAsil', age: 10})
+        .expect('location', url)
+        .expect(204)
+        .end(function(err) {
+          if(err) return done(err);
+
+          request
+            .get(url)
+            .expect(/vAsil/)
+            .expect(/10/)
+            .expect(200, done);
+        });
+    })();
+  });
 });
