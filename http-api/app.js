@@ -18,6 +18,10 @@ console.log('Application listen connections at http://localhost:3000');
 function* addUser() {
   var userFromRequest = yield parse(this);
 
+  if(!userFromRequest.name) {
+    this.throw(400, 'name required');
+  }
+
   var insertedUser = yield users.insert(userFromRequest);
 
   this.set('location', '/user/' + insertedUser._id);
