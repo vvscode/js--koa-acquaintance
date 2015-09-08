@@ -2,9 +2,32 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel='stylesheet' href='/bootstrap-superhero.min.css' />
+
     <title>{% block title %}Title not set{% endblock %}</title>
 </head>
 <body>
-{% block content %}Content not set{% endblock %}
+
+<div class='container'>
+    <div class='header'>
+        <h3 class='text-muted'>Koa vote - a simple voting site</h3>
+    </div>
+
+    <div class='jumbotron'>
+        {% block content %}Content not set{% endblock %}
+    </div>
+
+    <div class='footer'>
+        <p class='small'>Smilies from <a href='http://pixabay.com/en/users/OpenIcons/' target='_blank'>OpenIcons</a> used under the <a href='http://pixabay.com/go/?t=http%3A%2F%2Fcreativecommons.org%2Fpublicdomain%2Fzero%2F1.0%2Fdeed.en' target='_blank'>Public Domain CC0</a> license
+    </div>
+
+</div> <!-- /container -->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+<script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+<![endif]-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 </body>
 </html>
